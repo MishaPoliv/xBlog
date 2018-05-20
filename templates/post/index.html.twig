@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Posts{% endblock %}
+
+{% block body %}
+    <h6>
+        <table class="table">
+            <tr>
+                <th>id</th>
+                <th>Date</th>
+                <th>Caption</th>
+                <th>Text</th>
+                <th>Delete?</th>
+
+            </tr>
+
+            {% for post in post %}
+                <tr>
+                    <td>{{ post.id }}</td>
+                    <td></td>
+                    <td><a href="{{ path('post_show', {id: post.id}) }} "> {{ post.Caption }}</a></td>
+                    <td>{{ post.xText }}</td>
+                    <td><a href="{{ path('post_delete', {id:post.id}) }}" class="btn btn-danger">Delete</a> </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </h6>
+{% endblock %}

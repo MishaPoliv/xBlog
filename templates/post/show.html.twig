@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>{{ post.id }}</h1>
+        <hr>
+    <p> Date</p>
+        <hr>
+    <p>{{ post.Caption }}</p>
+        <hr>
+    <p>{{ post.xText }}</p>
+        <hr>
+
+    <li>
+        <a href="{{ path('homepage', {}) }}">
+            Back
+        </a>
+    </li>
+
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
