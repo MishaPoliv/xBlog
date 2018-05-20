@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -72,6 +73,12 @@ class Post
         return $this;
     }
 
+    public function __construct()
+    {
 
-
+        $this->DatePublic = new \DateTime();
+        $this->Caption = '';
+        $this->xText = '';
+        $this->Posts = new ArrayCollection();
+    }
 }

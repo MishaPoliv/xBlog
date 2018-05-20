@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add new post{% endblock %}
+
+{% block body %}
+    <h1> Edit your Post</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+
+    <a href="{{ path('post_show', {id:post.id}) }}">
+        <button> Save </button>
+    </a>
+
+    <a href="{{ path('homepage', {}) }}">
+        <button> Back </button>
+    </a>
+
+    {{ form_end(form) }}
+
+{% endblock %}

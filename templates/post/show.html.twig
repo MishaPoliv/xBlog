@@ -2,20 +2,23 @@
 
 {% block body %}
 
-    <h1>{{ post.id }}</h1>
+    <h1>{{ post.Caption }}</h1>
         <hr>
     <p> Date</p>
-        <hr>
-    <p>{{ post.Caption }}</p>
         <hr>
     <p>{{ post.xText }}</p>
         <hr>
 
-    <li>
-        <a href="{{ path('homepage', {}) }}">
-            Back
-        </a>
-    </li>
+    <a href="{{ path('homepage', {}) }}">
+        <button> Back to Homepage </button>
+    </a>
+
+    <a href="{{ path('post_edit', {id: post.id}) }}">
+        <button> Edit post </button>
+    </a>
+
+
+
 
 {% endblock %}
 
