@@ -14,8 +14,15 @@ class BlogController extends Controller
      */
     public function index()
     {
+
         return $this->render('blog/index.html.twig');
     }
+
+
+
+
+
+
 
 
 }

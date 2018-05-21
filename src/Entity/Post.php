@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -18,7 +17,7 @@ class Post
     private $id;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $DatePublic;
 
@@ -28,9 +27,16 @@ class Post
     private $Caption;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $xText;
+
+    public function __construct()
+    {
+
+        $this->DatePublic = new \DateTime();
+
+    }
 
     public function getId()
     {
@@ -73,12 +79,10 @@ class Post
         return $this;
     }
 
-    public function __construct()
+    public function __toString()
     {
-
-        $this->DatePublic = new \DateTime();
-        $this->Caption = '';
-        $this->xText = '';
-        $this->Posts = new ArrayCollection();
+       return $this->DatePublic;
     }
+
+
 }

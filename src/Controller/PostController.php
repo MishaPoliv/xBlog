@@ -5,10 +5,12 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Form\MakePostType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 
 
 class PostController extends Controller
@@ -41,30 +43,53 @@ class PostController extends Controller
         ]);
     }
 
-       /**
-     * @Route("/post/{id}/add", name="post_add")
+    /**
+     * @Route("/add", name="post_add")
      */
-      public function addPost(Post $post, Request $request)
-      {
+    public function addPost(EntityManagerInterface $em, Request $request)
+    {
 
-          $form = $this->createForm(MakePostType::class, $post);
-          $form -> handleRequest($request);
+        $post = new Post();
 
-          return $this->render('post/addpost.html.twig', [
-              'post' => $post,
-              'form' => $form->createView(),
-          ]);
-      }
+        $form = $this->createForm(MakePostType::class, $post);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em->persist($post);
+            $em->flush();
+            $id = $post->getId();
+
+            return $this->redirectToRoute('post_show', [
+                'id' => $id,
+            ]);
+            }
+
+        return $this->render('post/addpost.html.twig', [
+                       'post' => $post,
+                       'form' => $form->createView(),
+                    ]);
+    }
 
      /**
       * @Route("post/{id}/edit", name="post_edit")
       */
-     public function edit(Post $post, Request $request)
+     public function editPost(Post $post, EntityManagerInterface $em, Request $request)
      {
          $form = $this->createForm(MakePostType::class, $post);
          $form -> handleRequest($request);
 
+         if ($form->isSubmitted() && $form->isValid()) {
+             $em->persist($post);
+             $em->flush();
+
+             return $this->redirectToRoute('post', [
+                 'id' => $post->getId(),
+             ]);
+         }
+
          return $this->render('post/editpost.html.twig', [
+
              'post'=>$post,
              'form' => $form->createView(),
          ]);
@@ -75,11 +100,13 @@ class PostController extends Controller
      */
     public function delete(Post $post)
     {
+
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($post);
         $entityManager->flush();
         return $this->redirectToRoute('post');
     }
+
 
 
 

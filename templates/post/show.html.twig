@@ -4,21 +4,18 @@
 
     <h1>{{ post.Caption }}</h1>
         <hr>
-    <p> Date</p>
+    <p> {{ post.DatePublic|date("m/d/Y") }}</p>
         <hr>
     <p>{{ post.xText }}</p>
         <hr>
 
-    <a href="{{ path('homepage', {}) }}">
-        <button> Back to Homepage </button>
-    </a>
-
     <a href="{{ path('post_edit', {id: post.id}) }}">
-        <button> Edit post </button>
+        Edit post
     </a>
-
-
-
+    <br>
+    <a href="{{ path("homepage") }}">
+         Back to Homepage
+    </a>
 
 {% endblock %}
 

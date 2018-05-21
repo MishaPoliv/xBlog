@@ -3,20 +3,20 @@
 {% block title %}Add new post{% endblock %}
 
 {% block body %}
-    <h1> Create new Post</h1>
+
+    <h1> Create your Post</h1>
 
     {{ form_start(form) }}
     {{ form_widget(form) }}
 
-    <a href="{{ path('post_show', {id:post.id}) }}">
-        <button> Save </button>
-    </a>
-
-    <a href="{{ path('homepage', {}) }}">
-        <button> Back </button>
-    </a>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Save">
+        </div>
 
     {{ form_end(form) }}
 
+        <a href="{{ path("homepage") }}">
+            Home
+        </a>
 
 {% endblock %}
