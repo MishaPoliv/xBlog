@@ -40,30 +40,26 @@ class PostController extends Controller
     {
 
         $repo = $this->getDoctrine()->getRepository(Comment::class);
-        $comment = $repo->findBy(array(),array('DateCom' => 'DESC'));
-
+        $comments = $repo->findBy(array(),array('DateCom' => 'DESC'));
 
 
         $comment = new Comment();
+
+        $comment->setPost($post);
 
         $form = $this->createForm(MakeCommentType::class, $comment);
         $form->handleRequest($request);
 
 
-
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $comment->setPost($post);
             $em->persist($comment);
             $em->flush();
             $id = $post->getId();
 
-
-
             return $this->redirectToRoute('post_show', [
                 'id' => $id,
             ]);
-
 
         }
 
@@ -71,6 +67,7 @@ class PostController extends Controller
             'post'=>$post,
             'form' => $form->createView(),
             'comment'=>$comment,
+            'comments'=>$comments,
 
         ]);
     }
