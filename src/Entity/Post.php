@@ -17,7 +17,8 @@ class Post
     private $id;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * var \DateTime
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $DatePublic;
 
@@ -79,10 +80,9 @@ class Post
         return $this;
     }
 
-    public function __toString()
-    {
-       return $this->DatePublic;
-    }
 
+    public function stringDate(){
+        $stringDate = $this->getDatePublic()->format(DATE_RFC2822);
+    }
 
 }

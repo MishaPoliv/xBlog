@@ -1,23 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-
-    xBlog
-
-{% endblock %}
-
+{% block title %}xBlog{% endblock %}
 
 {% block body %}
 
 <div >
     <img src="http://rold.at.ua/skillup/xblog.png" width="100" height="60" align="left">
-    <h1>Добро пожаловать в xBlog</h1>
+    <h1>Добро пожаловать в xBlog</h1><br>
 </div>
 
     <div>
+
         <table class="table" align="centre">
             <tr>
-                <th>Блок таблицы с постами</th>
+
+                {% for post in post %}
+
+                    <div class="container">
+
+                        <div class="row mb-4">
+
+                            <div class="col-md-12">
+                                <div class="card flex-md-row mb-4 box-shadow h-md-250">
+                                    <div class="card-body d-flex flex-column align-items-start">
+                                        <h3 class="mb-0">
+                                            <a class="text-green">{{ post.Caption }}</a>
+                                        </h3>
+                                        <div class="mb-1 text-muted">{{ post.DatePublic|date("d.M.y H:m:s") }}</div>
+
+                                        <div class="card-text mb-auto col-2 text-truncate">{{ post.xText }}</div>
+
+                                        <a href="{{ path('post_show', {id: post.id}) }} ">Click to, read on</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
             </tr>
 
         </table>
