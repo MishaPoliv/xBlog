@@ -2,6 +2,12 @@
 
 {% block body %}
 
+<div class="container">
+
+    <div class="row mb-4">
+
+        <div class="col-md-12">
+
     <h1>{{ post.Caption }}</h1>
         <hr>
     <p> {{ post.DatePublic|date("m/d/Y") }}</p>
@@ -11,11 +17,67 @@
 
     <a href="{{ path('post_edit', {id: post.id}) }}">
         Edit post
-    </a>
-    <br>
+    </a> |
     <a href="{{ path("homepage") }}">
-         Back to Homepage
+        Back to Homepage
     </a>
+
+
+    <br>
+<hr><h5>Comments</h5>
+
+    <table class="table" align="centre">
+
+        <tr>
+
+        {% for comments in comment %}
+
+                <div class="container">
+
+                    <div class="row mb-4">
+
+                        <div class="col-md-12">
+                            <div class="card flex-md-row mb-4 box-shadow h-md-250">
+                                <div class="card-body d-flex flex-column align-items-start">
+                                    <h3 class="mb-0">
+                                        <a class="text-green">{{ comment.Nickname }}</a>
+                                    </h3>
+                                    <div class="mb-1 text-muted">{{ comment.DateCom|date("d.M.y H:m:s") }}</div>
+
+                                    <div class="card-text mb-auto col-2 text-truncate">{{ comment.Textcom }}</div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+        {% endfor %}
+
+        </tr>
+
+    </table>
+
+
+    <hr>
+
+
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Добавить">
+            </div>
+
+        {{ form_end(form) }}
+
+    <hr>
+    <br>
+
+
+
+
 
 {% endblock %}
 

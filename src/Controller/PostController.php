@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 
+use App\Entity\Comment;
 use App\Entity\Post;
+use App\Form\MakeCommentType;
 use App\Form\MakePostType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,11 +36,41 @@ class PostController extends Controller
     /**
      * @Route("/post/{id}", name="post_show")
      */
-    public function show(Post $post)
+    public function show(Post $post, Request $request, EntityManagerInterface $em, Comment $comment)
     {
+
+        $repo = $this->getDoctrine()->getRepository(Comment::class);
+        $comment = $repo->findBy(array(),array('DateCom' => 'DESC'));
+
+
+
+        $comment = new Comment();
+
+        $form = $this->createForm(MakeCommentType::class, $comment);
+        $form->handleRequest($request);
+
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $comment->setPost($post);
+            $em->persist($comment);
+            $em->flush();
+            $id = $post->getId();
+
+
+
+            return $this->redirectToRoute('post_show', [
+                'id' => $id,
+            ]);
+
+
+        }
 
         return $this->render('post/show.html.twig', [
             'post'=>$post,
+            'form' => $form->createView(),
+            'comment'=>$comment,
 
         ]);
     }
