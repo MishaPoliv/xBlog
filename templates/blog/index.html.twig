@@ -26,12 +26,12 @@
                                         <h3 class="mb-0">
                                             <a class="text-green">{{ post.Caption }}</a>
                                         </h3>
-                                        <div class="mb-1 text-muted">{{ post.DatePublic|date("d.M.y H:m:s") }}</div>
+                                       <div class="mb-1 text-muted">{{ post.DatePublic|date("d.M.y H:m:s") }}</div></small>
 
-                                        <div class="card-text mb-auto col-2 text-truncate">{{ post.xText }}</div>
+                                        <h5><div class="card-text mb-auto col-2 text-truncate">{{ post.xText }}</div></h5>
 
-                                         <a href="{{ path('post_show', {id: post.id}) }} ">Click to, read on</a>
-                                        <div>Количество коментариев:</div>
+                                       <h6>  <a href="{{ path('post_show', {id: post.id}) }} ">Click to read on</a></h6>
+                                        <small><div>Количество коментариев:{{ post.comment.count }}</div> </small>
                                     </div>
 
                                 </div>
